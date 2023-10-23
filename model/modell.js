@@ -7,7 +7,7 @@ class Modell {
   #talalt_akna;
   #palya = [];
   #jatekos;
-  #nehezseg = "könnyű";
+  #nehezseg;
   #adatok;
   #mezo_id;
   #ellenorzo_id;
@@ -21,6 +21,10 @@ class Modell {
 
   get sor() {
     return this.#sor;
+  }
+
+  get oszlop(){
+    return this.#oszlop;
   }
 
   setNehezseg(nehezseg) {
@@ -43,6 +47,7 @@ class Modell {
   }
 
   jatekosTerLetrehozas() {
+    console.log(this.#nehezseg)
     switch (this.#nehezseg) {
       case "könnyű":
         this.#akna = 10;
@@ -65,6 +70,7 @@ class Modell {
       default:
         break;
     }
+    console.log(this.#palya)
     return this.#palya;
   }
 

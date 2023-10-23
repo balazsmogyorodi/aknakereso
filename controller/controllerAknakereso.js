@@ -5,11 +5,10 @@ import JatekTer from "../view/jatek/jatekTer.js";
 class ControllerAknakereso {
   #jatekos;
   #nehezseg;
-  constructor() {
+  constructor(modell) {
     const articleElem = $("article");
     const idozito = new Idozito(articleElem);
     console.log("játék kezdődik");
-    const modell = new Modell();
     const jatek = new JatekTer(
       modell.jatekosTerLetrehozas(),
       articleElem,
@@ -23,6 +22,7 @@ class ControllerAknakereso {
         obj.getDivElem().append(`<div class="akna"> </div>`);
         jatek.setTalalat(true);
         this.#idoMegallito(idozito);
+        window.dispatchEvent(new CustomEvent("game_over"));
       } else {
         modell.aknaKoruloteEllenorzes(obj.getId());
         if (modell.talalat_akna > 0) {
@@ -31,7 +31,7 @@ class ControllerAknakereso {
           this.#dominoefektus(
             jatek.getObjektum(),
             obj.getId(),
-            modell.sor,
+            modell.oszlop,
             modell.palya
           );
         }
@@ -46,39 +46,39 @@ class ControllerAknakereso {
     idozito.setIdokiiro(time);
   }
 
-  #dominoefektus(obj, id, sor, palya) {
+  #dominoefektus(obj, id, oszlop, palya) {
     console.log(palya.length);
     //felfele
-    if (id - sor >= 0) {
-      obj[id - sor].kattintas();
+    if (id - oszlop >= 0) {
+      obj[id - oszlop].kattintas();
     }
     //lefele
-    if (id + sor <= palya.length - 1) {
-      obj[id + sor].kattintas();
+    if (id + oszlop <= palya.length - 1) {
+      obj[id + oszlop].kattintas();
     }
     //balra
-    if ((id % sor) - 1 >= 0) {
+    if ((id % oszlop) - 1 >= 0) {
       obj[id - 1].kattintas();
     }
     //jobbra
-    if ((id % sor) + 1 < sor) {
+    if ((id % oszlop) + 1 < oszlop) {
       obj[id + 1].kattintas();
     }
     //balLe
-    if ((id % sor) - 1 >= 0 && id + sor <= palya.length - 1) {
-      obj[id - 1 + sor].kattintas();
+    if ((id % oszlop) - 1 >= 0 && id + oszlop <= palya.length - 1) {
+      obj[id - 1 + oszlop].kattintas();
     }
     // jobbLe
-    if ((id % sor) + 1 < sor && id + sor <= palya.length - 1) {
-      obj[id + 1 + sor].kattintas();
+    if ((id % oszlop) + 1 < oszlop && id + oszlop <= palya.length - 1) {
+      obj[id + 1 + oszlop].kattintas();
     }
     // balFel
-    if ((id % sor) - 1 >= 0 && id - sor >= 0) {
-      obj[id - 1 - sor].kattintas();
+    if ((id % oszlop) - 1 >= 0 && id - oszlop >= 0) {
+      obj[id - 1 - oszlop].kattintas();
     }
     //jobbFel
-    if ((id % sor) + 1 < sor && id - sor >= 0) {
-      obj[id + 1 - sor].kattintas();
+    if ((id % oszlop) + 1 < oszlop && id - oszlop >= 0) {
+      obj[id + 1 - oszlop].kattintas();
     } else {
       return;
     }

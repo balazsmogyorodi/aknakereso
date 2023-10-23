@@ -2,11 +2,25 @@ class SelectMenu {
   #key;
   #divElem;
   #urlapElem;
+  #value
+  #selectElem
   constructor(key, adatok, szuloElem) {
     this.#divElem = szuloElem;
     this.#key = key;
     this.#urlapElem = adatok;
     this.#inputElemKiiras();
+    this.#selectElem = $(`#${this.#key}`)
+    this.#selectElem.on("change", ()=>{
+      this.#value = this.#selectElem.val();
+      console.log(this.#value);
+      this.#selectTrigger();
+    })
+    
+  }
+
+
+  get value(){
+    return this.#value;
   }
 
   #inputElemKiiras() {
@@ -25,14 +39,11 @@ class SelectMenu {
     this.#divElem.append(txt);
   }
 
-  /*
-    <label for="lname">Nehézségi fokozat</label><br />
-            <select  id="lname" name="lname" value="Doe">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="fiat">Fiat</option>
-                <option value="audi">Audi</option>
-          </select>
-          */
+
+  #selectTrigger(){
+    window.dispatchEvent(new CustomEvent("valaszt", {detail:this.#value}))
+  }
+
+  
 }
 export default SelectMenu;

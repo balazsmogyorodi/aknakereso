@@ -2,15 +2,22 @@ class TextMenu{
     #key;
     #divElem;
     #urlapElem;
+    #value
+    #inputElem
     constructor(key, adatok, szuloElem){
         this.#divElem = szuloElem;
         this.#key = key;
         this.#urlapElem = adatok;
         this.#inputElemKiiras();
-
-
-
+        this.#inputElem = $(`#${this.#key}`);
+        this.#inputElem.on("keyup", ()=>{
+            this.#value = this.#inputElem.val();
+            console.log(this.#value);
+            this.#irasTrigger();            
+        })
     }
+
+  
 
     #inputElemKiiras(){
         let txt = `<div><label for="${this.#key}">${this.#urlapElem.cim}</label><br />
@@ -19,6 +26,11 @@ class TextMenu{
         <div class="invalid elrejt">${this.#urlapElem.hibaUzenet}</div>
          </div>`;
         this.#divElem.append(txt);
+    }
+
+
+    #irasTrigger(){
+        window.dispatchEvent(new CustomEvent("ir", {detail:this.#value}));
     }
     
 
