@@ -11,22 +11,26 @@ class JatekMezo {
     szuloElem.append("<div></div>");
     this.#divElem = szuloElem.children("div:last-child");
     this.#divElem.addClass("mezoNemKattintott");
-    this.#kattintas();
-  }
-
-
-
-  #kattintas() {
     this.#divElem.on("click", () => {
-      if (this.#divElem.attr("class") == "mezoKattintott" || this.#talalat) {
-        return;
-      } else {
-        this.#divElem.removeClass("mezoNemKattintott");
-        this.#divElem.addClass("mezoKattintott");
-        this.#esemenyTrigger();
-      }
+      this.kattintas();
     });
   }
+
+  kattintas() {
+    if (this.#divElem.attr("class") == "mezoKattintott" || this.#talalat) {
+      return;
+    } else {
+      this.#divElem.removeClass("mezoNemKattintott");
+      this.#divElem.addClass("mezoKattintott");
+      this.#esemenyTrigger();
+    }
+  }
+
+
+  uzenet(){
+    console.log(this.#id_mezo);
+  }
+
   #esemenyTrigger() {
     window.dispatchEvent(new CustomEvent("mezoKattintas", { detail: this }));
   }
@@ -43,10 +47,8 @@ class JatekMezo {
     return this.#divElem;
   }
 
-  setTalalat(talalat){
+  setTalalat(talalat) {
     this.#talalat = talalat;
   }
-
-
 }
 export default JatekMezo;

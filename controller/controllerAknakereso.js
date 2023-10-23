@@ -25,6 +25,16 @@ class ControllerAknakereso {
         this.#idoMegallito(idozito);
       } else {
         modell.aknaKoruloteEllenorzes(obj.getId());
+        if (modell.talalat_akna > 0) {
+          obj.getDivElem().append(`${modell.talalat_akna}`);
+        } else {
+          this.#dominoefektus(
+            jatek.getObjektum(),
+            obj.getId(),
+            modell.sor,
+            modell.palya
+          );
+        }
       }
     });
   }
@@ -34,6 +44,44 @@ class ControllerAknakereso {
     time.removeClass();
     time.addClass("timerStop");
     idozito.setIdokiiro(time);
+  }
+
+  #dominoefektus(obj, id, sor, palya) {
+    console.log(palya.length);
+    //felfele
+    if (id - sor >= 0) {
+      obj[id - sor].kattintas();
+    }
+    //lefele
+    if (id + sor <= palya.length - 1) {
+      obj[id + sor].kattintas();
+    }
+    //balra
+    if ((id % sor) - 1 >= 0) {
+      obj[id - 1].kattintas();
+    }
+    //jobbra
+    if ((id % sor) + 1 < sor) {
+      obj[id + 1].kattintas();
+    }
+    //balLe
+    if ((id % sor) - 1 >= 0 && id + sor <= palya.length - 1) {
+      obj[id - 1 + sor].kattintas();
+    }
+    // jobbLe
+    if ((id % sor) + 1 < sor && id + sor <= palya.length - 1) {
+      obj[id + 1 + sor].kattintas();
+    }
+    // balFel
+    if ((id % sor) - 1 >= 0 && id - sor >= 0) {
+      obj[id - 1 - sor].kattintas();
+    }
+    //jobbFel
+    if ((id % sor) + 1 < sor && id - sor >= 0) {
+      obj[id + 1 - sor].kattintas();
+    } else {
+      return;
+    }
   }
 }
 

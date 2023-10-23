@@ -36,5 +36,9 @@ class JatekTer {
       this.#talalat = talalat;
       this.#ellenorzes();
   }
+
+  getObjektum(){
+    return this.#mezok;
+  }
 }
 export default JatekTer;
