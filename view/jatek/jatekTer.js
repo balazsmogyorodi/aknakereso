@@ -12,7 +12,17 @@ class JatekTer {
     szuloElem.append("<div></div>");
     this.#jatekMezo = szuloElem.children("div");
     this.#jatekMezo.addClass(`${nehezseg}`);
+    this.#ujraGomb()
     this.#init();
+  }
+
+  #ujraGomb(){
+    const navElem = $("nav");
+    navElem.append("<button>Új probálkozás</button>")
+    const buttonElem = navElem.children("button");
+    buttonElem.on("click",() =>{
+      this.#buttonEsemeny();
+    })
   }
 
   #init() {
@@ -39,6 +49,10 @@ class JatekTer {
 
   getObjektum(){
     return this.#mezok;
+  }
+
+  #buttonEsemeny(){
+    window.dispatchEvent(new CustomEvent("ujra"));
   }
 }
 export default JatekTer;

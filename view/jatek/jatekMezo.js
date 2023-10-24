@@ -11,6 +11,7 @@ class JatekMezo {
     szuloElem.append("<div></div>");
     this.#divElem = szuloElem.children("div:last-child");
     this.#divElem.addClass("mezoNemKattintott");
+
     this.#divElem.on("click", () => {
       this.kattintas();
     });
@@ -30,6 +31,7 @@ class JatekMezo {
   uzenet(){
     console.log(this.#id_mezo);
   }
+ 
 
   #esemenyTrigger() {
     window.dispatchEvent(new CustomEvent("mezoKattintas", { detail: this }));

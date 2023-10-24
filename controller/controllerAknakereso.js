@@ -5,23 +5,37 @@ import JatekTer from "../view/jatek/jatekTer.js";
 class ControllerAknakereso {
   #jatekos;
   #nehezseg;
+  #jatek;
+  #idozito
+
+  
   constructor(modell) {
     const articleElem = $("article");
-    const idozito = new Idozito(articleElem);
+    this.#idozito = new Idozito(articleElem);
     console.log("játék kezdődik");
-    const jatek = new JatekTer(
+    this.#jatek = new JatekTer(
       modell.jatekosTerLetrehozas(),
       articleElem,
       modell.nehezseg
     );
+    $(window).on("ujra", () =>{
+      articleElem.empty();
+      $("nav").empty();
+      this.#idozito = new Idozito(articleElem);
+      this.#jatek = new JatekTer(
+        modell.jatekosTerLetrehozas(),
+        articleElem,
+        modell.nehezseg
+      );
+    });
     $(window).on("mezoKattintas", (event) => {
-      console.log(idozito.ido);
+      console.log(this.#idozito.ido);
       const obj = event.detail;
       if (obj.getErtek() == "akna") {
         console.log(obj.getErtek());
         obj.getDivElem().append(`<div class="akna"> </div>`);
-        jatek.setTalalat(true);
-        this.#idoMegallito(idozito);
+        this.#jatek.setTalalat(true);
+        this.#idoMegallito(this.#idozito);
         window.dispatchEvent(new CustomEvent("game_over"));
       } else {
         modell.aknaKoruloteEllenorzes(obj.getId());
@@ -29,7 +43,7 @@ class ControllerAknakereso {
           obj.getDivElem().append(`${modell.talalat_akna}`);
         } else {
           this.#dominoefektus(
-            jatek.getObjektum(),
+            this.#jatek.getObjektum(),
             obj.getId(),
             modell.oszlop,
             modell.palya
