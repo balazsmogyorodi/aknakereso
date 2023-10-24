@@ -21,6 +21,7 @@ class ControllerAknakereso {
     $(window).on("ujra", () =>{
       articleElem.empty();
       $("nav").empty();
+      modell.felforditottVissza();
       this.#idozito = new Idozito(articleElem);
       this.#jatek = new JatekTer(
         modell.jatekosTerLetrehozas(),
@@ -31,13 +32,23 @@ class ControllerAknakereso {
     $(window).on("mezoKattintas", (event) => {
       console.log(this.#idozito.ido);
       const obj = event.detail;
+      modell.setFelforditot();
+      modell.setGyozelem();
+      console.log(this.#idozito.ido)
       if (obj.getErtek() == "akna") {
         console.log(obj.getErtek());
         obj.getDivElem().append(`<div class="akna"> </div>`);
         this.#jatek.setTalalat(true);
         this.#idoMegallito(this.#idozito);
-        window.dispatchEvent(new CustomEvent("game_over"));
-      } else {
+        modell.setIdozito(this.#idozito.ido)
+        window.dispatchEvent(new CustomEvent("game_over", {detail:modell}));
+      } if(modell.getGyozelem()){
+        this.#jatek.setTalalat(true);
+        this.#idoMegallito(this.#idozito);
+        modell.setIdozito(this.#idozito.ido)
+        window.dispatchEvent(new CustomEvent("gyozelem", {detail:modell}));
+      }
+      else {
         modell.aknaKoruloteEllenorzes(obj.getId());
         if (modell.talalat_akna > 0) {
           obj.getDivElem().append(`${modell.talalat_akna}`);

@@ -10,11 +10,45 @@ class Modell {
   #nehezseg;
   #adatok;
   #mezo_id;
-  #ellenorzo_id;
+  #idozito
+  #felforditot;
+  #gyoztel
   constructor() {
     this.#adatok = menuReszek;
+    this.#jatekos = "Gipsz Jakab";
+    this.#idozito = 0;
+    this.#felforditot = 0
   }
 
+  setFelforditot(){
+    this.#felforditot = this.#felforditot + 1;
+    console.log(this.#felforditot)
+    console.log(this.#palya.length-this.#akna)
+  }
+
+  felforditottVissza(){
+    this.#felforditot = 0;
+  }
+
+  setGyozelem(){
+    if (this.#felforditot == this.#palya.length-this.#akna){
+      this.#gyoztel = true;
+    } else {
+      this.#gyoztel = false;
+    }
+  }
+
+  getGyozelem(){
+    return this.#gyoztel;
+  }
+
+  setIdozito(ido){
+    this.#idozito = ido;
+  }
+  get idozito(){
+    return this.#idozito;
+  }
+  
   get nehezseg() {
     return this.#nehezseg;
   }
@@ -25,6 +59,11 @@ class Modell {
 
   get oszlop(){
     return this.#oszlop;
+  }
+
+  getIRekordIdo(){
+    return ido
+
   }
 
   setNehezseg(nehezseg) {
@@ -40,7 +79,11 @@ class Modell {
   }
 
   setJatekos(jatekos) {
-    this.#jatekos = jatekos;
+    if (jatekos == ""){
+      this.#jatekos = "Anonymus";
+    } else{
+      this.#jatekos = jatekos;
+    }
   }
   get talalat_akna() {
     return this.#talalt_akna;

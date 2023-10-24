@@ -2,7 +2,7 @@ article{
     width: 50%;
     margin: auto;
     height: 350px;
-
+    position: relative;
 
 
    
@@ -64,5 +64,30 @@ p{
     width: 50%;
 
 }
+
+
+.uzenet{
+    position: relative;
+    margin: auto;
+border: 1px solid black;
+width: 400px;
+background-color: antiquewhite;
+margin-top: -250px;
+z-index: 100;
+
+
+}
+
+.fejlec {
+    background-color: blue;
+}
+
+.bezar{
+    color: white;
+    background-color: red;
+    position: relative;
+    left: 382px;
+}
+  
 
 

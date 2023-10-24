@@ -27,8 +27,10 @@ class Idozito {
     this.#idoKiiro = idoKiiro;
   }
 
-  get ido() {
+  get ido(){
     return this.#ido;
   }
+
+ 
 }
 export default Idozito;

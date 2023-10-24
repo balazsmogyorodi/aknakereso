@@ -8,6 +8,7 @@ class Menu {
   #nev;
   #nehezseg;
   constructor(adatok, szuloElem) {
+    this.#nev = "";
     this.#nehezseg = "könnyű";
     this.#adatok = adatok;
     szuloElem.append("<div></div>");
